@@ -1,7 +1,7 @@
 module tb;
 
-  reg A,B,Cin,Bin,cin,bin,mode;
-  reg [3:0] a,b,sel;
+  reg A,B,Cin,Bin,cin,bin,mode,p_even,p_odd;
+  reg [3:0] a,b,sel,data;
   wire f_sum,f_carry,h_sum,h_carry;
   wire f_diff,f_barrow,h_diff,h_barrow;
   wire [3:0] a_sum,s_diff,Sum;
@@ -21,7 +21,7 @@ module tb;
   comparator_4bit u8 (.A(a),.B(b),.A_equal_B(A_equal_B),.A_less_B(A_less_B),.A_greater_B(A_greater_B));
 
   priority_encoder_4bit u9 (.sel(sel),.Y(Y));
-  priority_generator_4bit u10 (.sel(sel),.Y(Y),.valid(valid));
+  parity_generator_4bit u10 (.data(data),.p_even(p_even),.p_odd(p_odd));
 
   initial begin
    $display("\n==================== FULL ADDER ====================");
@@ -86,10 +86,12 @@ module tb;
     $display("  %b || %b", sel, Y);
 
 
-    $display("\n==================== PRIORITY GENERATOR ====================");
-    $display("  sel  ||  Y | valid ");
+    $display("\n==================== PARITY GENERATOR ====================");
+    $display("  data  ||  p_even | p_odd ");
     $display("-------------------------");
-    sel=4'b0100; #10;
-    $display("  %b || %b |   %0d", sel, Y, valid);
+    data=4'b0101; #10;
+    $display("  %b || %b |   %0d", data, p_even, p_odd);
+    data=4'b0111; #10;
+    $display("  %b || %b |   %0d", data, p_even, p_odd);
   end
 endmodule
