@@ -1,4 +1,4 @@
-module bit_comparator_2(
+module bit_comparator_4(
     input  wire [3:0] a,
     input  wire [3:0] b,
     output wire Y_equal,
